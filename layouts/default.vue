@@ -1,13 +1,9 @@
 <template>
   <div class="pb-6">
-    <div class="bg-white py-4">
-      <LayoutHeader class="container mx-auto border-b border-black pb-2" />
-    </div>
+    <LayoutHeader />
 
-    <main class="bg-white">
-      <div class="container mx-auto">
-        <nuxt class="mt-4" />
-      </div>
+    <main class="bg-white max-w-4xl mx-auto">
+      <nuxt />
     </main>
   </div>
 </template>

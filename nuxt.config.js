@@ -42,6 +42,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/svg',
   ],
   /*
    ** Nuxt.js modules
@@ -53,12 +54,7 @@ export default {
       const posts = await $content('posts', { deep: true })
         .only(['slug'])
         .fetch()
-
-      const categories = await $content('categories')
-        .only(['slug'])
-        .fetch()
-
-      return [...posts.map(p => `/${p.slug}`), ...categories.map(c => `/category/${c.slug}`)]
+      return posts.map(p => `/${p.slug}`)
     },
   },
   hooks: {

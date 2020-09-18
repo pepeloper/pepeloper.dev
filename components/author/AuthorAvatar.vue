@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'AuthorName',
+  name: 'AuthorAvatar',
 
   props: {
     author: {

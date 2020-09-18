@@ -1,54 +1,21 @@
 <template>
-  <article class="mb-3 h-full border-b-4 pb-2 border-black flex flex-col justify-between">
-    <div>
-      <!-- IMAGE -->
-      <nuxt-link :to="`/${post.permalink}`" class="flex-shrink-0">
-        <img
-          class="h-48 w-full object-cover border-4 border-gray-900 border-b-8"
-          :src="post.image"
-          alt=""
-        />
+  <article
+    class="bg-white px-6 pt-6 xl:pt-12 pb-12 xl:pb-20 hover:bg-gray-100"
+    :class="{ 'col-span-2': isLastPost && isOdd }"
+  >
+    <h2 class="mb-6 text-3xl font-bold leading-tight">
+      <nuxt-link :to="`/${post.permalink}`">
+        {{ post.title }}
       </nuxt-link>
-      <!-- IMAGE -->
-
-      <!-- TITLE AND USER -->
-      <div
-        class="bg-gray-900 md:rounded-b-md text-white font-sans px-6 py-3 flex justify-between items-start"
-      >
-        <div class="flex flex-col">
-          <div class="flex items-start">
-            <nuxt-link :to="`/${post.permalink}`">
-              <h3 class="text-2xl leading-5 font-semibold text-white">
-                {{ post.title }}
-              </h3>
-            </nuxt-link>
-            <div
-              class="ml-4 -mt-1 text-xs border border-gray-800 py-1 px-3 rounded-lg whitespace-no-wrap"
-            >
-              <nuxt-link :to="`/category/${post.category}`">{{ post.category }}</nuxt-link>
-            </div>
-          </div>
-          <div class="mt-1">
-            <span class="text-sm font-medium text-gray-100">{{ post.readingTime }}</span>
-            <span>|</span>
-            <time class="text-sm font-medium text-gray-100" :datetime="dateTag">
-              {{ postDate }}
-            </time>
-          </div>
-        </div>
-        <AuthorAvatar class="ml-2" :author="post.author" />
-      </div>
-      <!-- TITLE AND USER -->
-
-      <p class="mt-3 text-base leading-6 text-gray-800 px-6">
-        {{ post.description }}
-      </p>
+    </h2>
+    <div class="mb-6 text-gray-800">
+      <p class="mb-4">{{ post.description }}</p>
     </div>
-    <div class="px-6 flex justify-end">
-      <nuxt-link :to="`/${post.permalink}`" class="text-sm text-gray-800 hover:underline">
-        Read this article →
+    <p>
+      <nuxt-link :to="`/${post.permalink}`" class="font-mono text-green-600 font-medium">
+        Read more »
       </nuxt-link>
-    </div>
+    </p>
   </article>
 </template>
 <script>
@@ -62,6 +29,14 @@ export default {
     post: {
       type: Object,
       default: () => ({}),
+    },
+    totalPosts: {
+      type: Number,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
     },
   },
 
@@ -78,6 +53,14 @@ export default {
 
     dateTag() {
       return format(this.date, 'yyyy-MM-dd')
+    },
+
+    isLastPost() {
+      return this.totalPosts - 1 === this.index
+    },
+
+    isOdd() {
+      return this.totalPosts % 2 !== 0
     },
   },
 }
